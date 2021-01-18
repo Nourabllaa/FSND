@@ -70,7 +70,7 @@ The errors handled by the API include:
   "success": true
 }
 
-# #GET /questions
+## GET /questions
 - Returns a list of category objects, a list of paginated question objects, the total number of questions and response status.
 - curl -X GET http://127.0.0.1:5000/questions.
 {
@@ -158,7 +158,7 @@ The errors handled by the API include:
   "total_questions": 28
 }
 
-# #POST /questions
+## POST /questions
 - Used to create a new question and to search for a specific question.
 
 1. Create new question : 
@@ -169,7 +169,7 @@ The errors handled by the API include:
 - curl -X POST http://127.0.0.1:5000/questions -H 'Content-Type: application/json' -d '{"searchTerm": "discovered"}'
 
 
-# # DELETE /questions/{question_id} 
+## DELETE /questions/{question_id} 
 - Used to deletes the questions with the specified id and returns the deleted question's id, paginated
 list of questions, total questions in the database and response status.
 - curl -X DELETE http://127.0.0.1:5000/questions/49
