@@ -34,10 +34,14 @@ def create_app(test_config=None):
 
 
   def paginate_questions(request, selection):
+    # used to update the view with qustions in range 
+
+    # get data from request
     page = request.args.get('page', 1, type=int)
     start =  (page - 1) * QUESTIONS_PER_PAGE
     end = start + QUESTIONS_PER_PAGE
-    
+
+    # format the qustions in processable format 
     questions = [question.format() for question in selection ]
     current_questions = questions[start:end]
     return current_questions
