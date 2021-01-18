@@ -85,21 +85,26 @@ def create_app(test_config=None):
   '''
   @app.route('/questions')
   def retrieve_all():
-    page = request.args.get('page', 1, type=int)
+    #page = request.args.get('page', 1, type=int)
 
     # retrave all questions and paginate 
     questions = Question.query.order_by(Question.id).all()
     current_questions = paginate_questions(request, questions)
 
-    categories= Category.query.all()
-    
+    if len(current_questions) == 0:
+      abort(404)
+
+
     # create categories dict and add categories in proper format 
+    categories= Category.query.all()
     categories_dict = {}
     for category in categories:
       categories_dict[category.id] = category.type
-
-    if len(current_questions) == 0:
+    
+    if len(categories_dict) == 0:
       abort(404)
+
+    
 
     return jsonify({
       'success': True,
@@ -138,7 +143,8 @@ def create_app(test_config=None):
     return jsonify({
     'success': True,
     'current_questions': current_questions,
-    'total_questions': len(questions)
+    'total_questions': len(questions),
+    'deleted': id
     })
 
 
@@ -294,7 +300,7 @@ def create_app(test_config=None):
 
     # make sure all fields is not null 
     if ((category is None) or (previous_questions is None)):
-        abort(400)
+        abort(404)
     
     # make sure id is an int 
     category_id = int(category['id'])
@@ -325,7 +331,8 @@ def create_app(test_config=None):
     # if new and unused question have found 
     return jsonify({
         'success': True,
-        'question': question.format()
+        'question': question.format(),
+
     })
 
   '''
@@ -347,7 +354,7 @@ def create_app(test_config=None):
     return jsonify({
         "success": False, 
         "error": 422,
-        "message": "unprocessable "
+        "message": "unprocessable"
         }), 422
 
   @app.errorhandler(400)
