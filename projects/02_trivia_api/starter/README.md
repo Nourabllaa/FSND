@@ -325,7 +325,3 @@ list of questions, total questions in the database and response status.
 - Noura Albllaa
 
 
-
-
-[Fork](https://help.github.com/en/articles/fork-a-repo) the [project repository]() 
-
